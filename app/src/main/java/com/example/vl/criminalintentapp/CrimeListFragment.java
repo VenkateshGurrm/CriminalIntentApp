@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Created by vl on 11/12/2015.
- */
+ *///
 public class CrimeListFragment extends ListFragment {
     private ArrayList<Crime> mCrimes;
     private static final String TAG = "CrimeListFragment";
