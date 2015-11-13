@@ -34,6 +34,7 @@ public class CrimeListFragment extends ListFragment {
         CrimeAdapter<Crime> arrayAdapter = new CrimeAdapter( mCrimes);
         setListAdapter(arrayAdapter);
 
+        // sumchanges
     }
 /*
     @Override
