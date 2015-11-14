@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toolbar;
 
 /**
  * Created by vl on 11/12/2015.
@@ -16,6 +17,9 @@ public abstract  class SingleFragmentActivity extends FragmentActivity {
     public void onCreate(Bundle onStateBundle){
         super.onCreate(onStateBundle);
         setContentView(R.layout.activity_fragment);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //get().setSupportActionBar(toolbar);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
