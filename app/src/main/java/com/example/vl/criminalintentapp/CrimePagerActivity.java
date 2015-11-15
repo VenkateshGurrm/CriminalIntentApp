@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -13,7 +15,7 @@ import java.util.UUID;
 /**
  * Created by vl on 11/13/2015.
  */
-public class CrimePagerActivity extends FragmentActivity {
+public class CrimePagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private ArrayList<Crime> mCrimes;
@@ -24,6 +26,11 @@ public class CrimePagerActivity extends FragmentActivity {
         mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
+
+        //Log.d("Venky", "DDD");
+
+
+       // Log.d("Venky", toolbar.toString());
 
         mCrimes = CrimeLab.getInstance(this).getmCrimes();
 

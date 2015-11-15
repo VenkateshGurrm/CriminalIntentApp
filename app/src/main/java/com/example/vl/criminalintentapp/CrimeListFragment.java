@@ -29,10 +29,10 @@ public class CrimeListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         getActivity().setTitle(R.string.crimes_title);
-        mCrimes = CrimeLab.getInstance(getActivity()).getmCrimes();
 
+
+        mCrimes = CrimeLab.getInstance(getActivity()).getmCrimes();
         Log.d("Venky", mCrimes.toString());
 
         CrimeAdapter<Crime> arrayAdapter = new CrimeAdapter( mCrimes);
