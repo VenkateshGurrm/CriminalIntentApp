@@ -9,7 +9,6 @@ import java.util.UUID;
 public class Crime {
 
     Crime(){
-
         mDate = new Date();
         mId = UUID.randomUUID();
     }

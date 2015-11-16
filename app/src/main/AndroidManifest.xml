@@ -24,9 +24,14 @@
             </intent-filter>
         </activity>
         <activity
+
             android:name=".CrimePagerActivity"
             android:label="Venkateshs"
             android:theme="@style/AppTheme.NoActionBar" >
+
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CrimeListActivity"/>
+
         </activity>
     </application>
 

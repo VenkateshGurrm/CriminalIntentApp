@@ -26,12 +26,6 @@ public class CrimePagerActivity extends AppCompatActivity {
         mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
-
-        //Log.d("Venky", "DDD");
-
-
-       // Log.d("Venky", toolbar.toString());
-
         mCrimes = CrimeLab.getInstance(this).getmCrimes();
 
         FragmentManager fragmentManager = getSupportFragmentManager();

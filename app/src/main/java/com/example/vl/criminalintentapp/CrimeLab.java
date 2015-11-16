@@ -34,12 +34,18 @@ public class CrimeLab {
     private CrimeLab(Context appContext){
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
-        for (int i = 0; i < 100; i++) {
+
+        Crime c = new Crime();
+        c.setmTitle("Crime #1" );
+        c.setmSolved(false); // Every other one
+        mCrimes.add(c);
+
+        /*for (int i = 0; i < 100; i++) {
             Crime c = new Crime();
             c.setmTitle("Crime #" + i);
             c.setmSolved(i % 2 == 0); // Every other one
             mCrimes.add(c);
-        }
+        }*/
     }
 
     public static CrimeLab getInstance(Context c){
@@ -47,5 +53,9 @@ public class CrimeLab {
             instance = new CrimeLab(c.getApplicationContext());
         }
         return instance;
+    }
+
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
     }
 }
