@@ -190,5 +190,9 @@ public class CrimeFragment extends Fragment {
             mTimeButton.setText(mCrime.getmDate().toString());
         }
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        CrimeLab.getInstance(getActivity()).saveCrimes();
+    }
 }
