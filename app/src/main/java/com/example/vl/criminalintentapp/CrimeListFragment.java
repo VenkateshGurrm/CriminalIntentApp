@@ -28,6 +28,7 @@ public class CrimeListFragment extends ListFragment {
     private ArrayList<Crime> mCrimes;
     private static final String TAG = "CrimeListFragment";
     private boolean mSubtitleVisible;
+    private CrimeAdapter<Crime> arrayAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,10 @@ public class CrimeListFragment extends ListFragment {
 
         mCrimes = CrimeLab.getInstance(getActivity()).getmCrimes();
         Log.d("Venky", mCrimes.toString());
-
-        CrimeAdapter<Crime> arrayAdapter = new CrimeAdapter( mCrimes);
+         arrayAdapter = new CrimeAdapter( mCrimes);
+        /*CrimeAdapter<Crime> arrayAdapter = new CrimeAdapter( mCrimes);
         setListAdapter(arrayAdapter);
-
+        */
         setRetainInstance(true);
         mSubtitleVisible =false;
 
@@ -49,7 +50,13 @@ public class CrimeListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, parent, savedInstanceState);
+        View v = inflater.inflate(R.layout.crime_list, parent, false);
+
+        ListView view = (ListView) v.findViewById(android.R.id.list);
+        view.setEmptyView(v.findViewById(android.R.id.empty) );
+        setListAdapter(arrayAdapter);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (mSubtitleVisible) {
                 AppCompatActivity appCompatActivity = ((AppCompatActivity)getActivity());
@@ -126,7 +133,6 @@ public class CrimeListFragment extends ListFragment {
 
             if(convertView == null){
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_list_item_2,null);
-
             }
 
             com.example.vl.criminalintentapp.Crime c = (com.example.vl.criminalintentapp.Crime)(getListAdapter()).getItem(position);
@@ -149,6 +155,8 @@ public class CrimeListFragment extends ListFragment {
             return convertView;
 
         }
+
+
     }
 
     @Override

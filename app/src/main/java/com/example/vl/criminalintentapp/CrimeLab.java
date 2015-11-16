@@ -35,10 +35,10 @@ public class CrimeLab {
         mAppContext = appContext;
         mCrimes = new ArrayList<Crime>();
 
-        Crime c = new Crime();
+        /*Crime c = new Crime();
         c.setmTitle("Crime #1" );
         c.setmSolved(false); // Every other one
-        mCrimes.add(c);
+        mCrimes.add(c);*/
 
         /*for (int i = 0; i < 100; i++) {
             Crime c = new Crime();
