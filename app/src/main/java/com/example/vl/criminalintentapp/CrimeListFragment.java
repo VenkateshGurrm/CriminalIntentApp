@@ -83,8 +83,8 @@ public class CrimeListFragment extends ListFragment {
 
                 @Override
                 public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                   // MenuInflater menuInflater = mode.getMenuInflater();
-                    MenuInflater menuInflater = getActivity().getMenuInflater();
+                    MenuInflater menuInflater = mode.getMenuInflater();
+                    //MenuInflater menuInflater = getActivity().getMenuInflater();
                     //toolbar.setVisibility(View.INVISIBLE);
 
                     Log.d("Venky1", menuInflater.toString());

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +41,7 @@ public class CrimeFragment extends Fragment {
     public  static String CRIME_ID = "crimeId";
     private static final String DIALOG_DATE = "date";
     private static final String DIALOG_TIME = "time";
+    private ImageButton cameraButton;
 
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
@@ -134,11 +137,11 @@ public class CrimeFragment extends Fragment {
         mTimeButton = (Button) view.findViewById(R.id.crime_time);
         SimpleDateFormat tim  = new SimpleDateFormat("hh : mm");
         mTimeButton.setText(tim.format(mCrime.getmDate()));
-        mTimeButton.setOnClickListener(new View.OnClickListener(){
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-               // TimePickerFragment fragment = new TimePickerFragment();
+                // TimePickerFragment fragment = new TimePickerFragment();
                 TimePickerFragment fragment = TimePickerFragment.newInstance(mCrime.getmDate());
                 fragment.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
                 fragment.show(fm, DIALOG_TIME);
@@ -151,9 +154,30 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-               mCrime.setmSolved(isChecked);
+                mCrime.setmSolved(isChecked);
             }
         });
+
+
+        cameraButton = (ImageButton) view.findViewById(R.id.crime_imageButton);
+        cameraButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), CrimeCameraActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        // If camera is not available, disable camera functionality
+        PackageManager pm = getActivity().getPackageManager();
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) &&
+                !pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT))
+            cameraButton.setEnabled(false);
+
 
         return view;
 
