@@ -18,7 +18,8 @@ public abstract  class SingleFragmentActivity extends AppCompatActivity  {
     @Override
     public void onCreate(Bundle onStateBundle){
         super.onCreate(onStateBundle);
-            setContentView(R.layout.activity_fragment);
+        //setContentView(R.layout.activity_fragment);
+        setContentView(getLayoutID());
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -26,10 +27,15 @@ public abstract  class SingleFragmentActivity extends AppCompatActivity  {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragementContainer);
-        if(fragment ==null){
+
+        if(fragment == null){
             fragment = creatFragment();
             fragmentManager.beginTransaction().add( R.id.fragementContainer, fragment).commit();
         }
 
+    }
+
+    protected int getLayoutID() {
+        return R.layout.activity_fragment;
     }
 }

@@ -2,6 +2,7 @@ package com.example.vl.criminalintentapp;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -34,6 +35,28 @@ public class CrimeListFragment extends ListFragment {
     private static final String TAG = "CrimeListFragment";
     private boolean mSubtitleVisible;
     private CrimeAdapter<Crime> arrayAdapter;
+
+    private Callbacks mCallbacks;
+    /**
+     * Required interface for hosting activities.
+     */
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (Callbacks)activity;
+    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+    public void updateUI() {
+        ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -150,10 +173,12 @@ public class CrimeListFragment extends ListFragment {
             case R.id.menu_item_new_crime:
                 Crime crime = new Crime();
                 CrimeLab.getInstance(getActivity()).addCrime(crime);
-                Intent i = new Intent(getActivity(), CrimePagerActivity.class);
+                /*Intent i = new Intent(getActivity(), CrimePagerActivity.class);
                 i.putExtra(CrimeFragment.CRIME_ID, crime.getmId());
                // startActivityForResult(i, 0);
-                startActivity(i);
+                startActivity(i);*/
+                ((CrimeAdapter)getListAdapter()).notifyDataSetChanged();
+                mCallbacks.onCrimeSelected(crime);
                return true;
 
             case R.id.menu_item_show_subtitle:
@@ -183,9 +208,10 @@ public class CrimeListFragment extends ListFragment {
         Crime c = (Crime) (getListAdapter()).getItem(position);
         //Log.d(TAG, c.getmTitle() + " was clicked");
         //Intent intent = new Intent(getContext(), CriminalActivity.class);
-        Intent intent = new Intent(getActivity(), CrimePagerActivity.class);
+        /*Intent intent = new Intent(getActivity(), CrimePagerActivity.class);
         intent.putExtra(CrimeFragment.CRIME_ID, c.getmId());
-        startActivity(intent);
+        startActivity(intent);*/
+        mCallbacks.onCrimeSelected(c);
     }
 
     private class CrimeAdapter<Crime> extends ArrayAdapter<Crime>{

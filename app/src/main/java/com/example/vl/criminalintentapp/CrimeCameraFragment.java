@@ -1,7 +1,9 @@
 package com.example.vl.criminalintentapp;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.os.Build;
@@ -10,11 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.style.BulletSpan;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import java.io.FileOutputStream;
@@ -28,13 +32,11 @@ import java.util.UUID;
  */
 public class CrimeCameraFragment extends Fragment {
     private static final  String TAG = "CrimeCameraFragment";
+    public static final String FILENAME =  "IMAGE_NAME";
 
     private Camera mCamera;
     private SurfaceView mSurfaceView;
     private View mProgressContainer;
-
-
-
 
     @Nullable
     @Override
@@ -54,6 +56,12 @@ public class CrimeCameraFragment extends Fragment {
                 if (mCamera != null) {
                     mCamera.takePicture(mShutterCallback, null, mJpegCallback);
                 }
+
+                /*Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+                int rotation = display.getRotation();
+
+                Log.d("Venky",  rotation + " a ");
+                Log.d("Venky", getResources().getConfiguration().orientation +" b ");*/
             }
         });
 
@@ -117,6 +125,8 @@ public class CrimeCameraFragment extends Fragment {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
 
+            Log.i(TAG, " mJpegCallBack");
+
             String fileName = UUID.randomUUID().toString() +".jpg";
 
             FileOutputStream fileOutputStream = null;
@@ -126,13 +136,11 @@ public class CrimeCameraFragment extends Fragment {
                 fileOutputStream.write(data);
 
             }catch (Exception e){
-
                 success = false;
             } finally {
                 try{
                   if(fileOutputStream != null)
                       fileOutputStream.close();
-
                 }catch (Exception e){
                     success = false;
                 }
@@ -141,6 +149,15 @@ public class CrimeCameraFragment extends Fragment {
             if (success) {
                 Log.i(TAG, "JPEG saved at " + fileName);
             }
+
+            if (success) {
+                Intent i = new Intent();
+                i.putExtra(FILENAME, fileName);
+                getActivity().setResult(Activity.RESULT_OK, i);
+            } else {
+                getActivity().setResult(Activity.RESULT_CANCELED);
+            }
+
             getActivity().finish();
 
         }
